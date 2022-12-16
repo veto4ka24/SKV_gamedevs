@@ -4,7 +4,45 @@ class Russianregions:
     b = None
 
 class oblast(Russianregions):
-    pass
+    q = 'Этот регион в московском часовом поясе?'
+
+class MSK(oblast):
+    q = 'Граничит ли регион с другими государствами?'
+
+class nearborder(MSK):
+    q = 'Граничит с Украиной?'
+
+class nearUkraine(nearborder):
+    q = 'Захватывает ли территория региона Курскую магнитную аномалию?'
+
+class anomalia(nearUkraine):
+    q = 'В честь столицы этого региона названа известная подводная лодка?'
+
+class underwater(anomalia):
+    a = 'Курская область'
+    b = 'Белгородская область'
+
+class nonanomalia(nearUkraine):
+    q = 'Столица региона -- город-миллионник?'
+
+class milionnik(nonanomalia):
+    b = 'Брянская область'
+    q = 'В этом регионе находятся представители донского казачества?'
+
+class qazak(milionnik):
+    a = 'Ростовская область'
+    b = 'Воронежская область'
+
+class notUkraine(nearborder):
+    q = 'Есть ли в столице области кремль?'
+
+class kremlin(notUkraine):
+    q = 'Это второй по значимости после Киева центр Киевской Руси?'
+
+class KievRus(kremlin):
+    a = 'Великий Новгород'
+    q = 'Столица региона стоит на Днепре?'
+
 
 class neoblast(Russianregions):
     q = 'Это республика?'
