@@ -60,7 +60,7 @@ def myFunction():
 
 
 
-
+a=True
 def myFunction1():
     global title
     if type(title)!=Replica:
