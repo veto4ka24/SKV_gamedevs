@@ -5,14 +5,15 @@ class Replica():
         return str(self.replica)
 
 class Question(Replica):
-    def __init__(self, rep, yes, no):
+    def __init__(self, rep, yes, no=False):
           self.replica=rep
           self.yes=yes
           self.no=no
-    def next(self,answer):
-        if answer=='yes':
+
+
+    def next_yes(self):
             return self.yes
-        else:
+    def next_no(self):
             return self.no
     def __str__(self):
         return str(self.replica)
@@ -23,7 +24,7 @@ import csv
 with open("regions.csv", encoding='utf-8') as r_file:
     file_reader = csv.reader(r_file)
     for row in file_reader:
-        region = Replica(row)
+        region = Replica(row[0])
         regions.append(region)
 
 
@@ -152,7 +153,8 @@ kazah = Question('Регион соседствует с Казахстаном?
 
 transsib = Question('Современная Транссибирская магистраль проходит по территории этой области?', railway, kazah)
 
-MSK = Question('Этот регион в московском часовом поясе?', nearborder3, transsib)
+MSK = Question('Этот регион в московском' \
+               'часовом поясе?', nearborder3, transsib)
 
 oblast = Question('Вы загадали область?', MSK, respublica)
 

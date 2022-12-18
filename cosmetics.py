@@ -1,5 +1,7 @@
 import pygame
 from Button_class import Button
+from question import *
+from blit_text import blit_text
 GREEN = (109, 234, 117)
 DARKGREEN = (40, 96, 51)
 RED = (221, 68, 35)
@@ -49,13 +51,31 @@ rules_l1 = comicsans_font2.render("Правила игры", True, (130, 0, 140)
 rules_l2 = comicsans_font2.render("Вы загадываете какой-то субъект России,", True, (130, 0, 140))
 rules_l3 = comicsans_font2.render(" а Джинн с помощью ваших ответов его угадывает.", True, (130, 0, 140))
 rules_l4 = comicsans_font2.render("Все просто, нужно лишь немного вспомнить географию!", True, (130, 0, 140))
-rules_l5 = comicsans_font3.render('Для ответов на вопросы используйте клавиши "ВПРАВО" и "ВЛЕВО"', True, (140, 0, 100))
+rules_l5 = comicsans_font3.render('Для ответов на вопроcы используйте кнопки на экране', True, (140, 0, 100))
 rules_l6 = comicsans_font3.render('Для всплывания окна с вопросом используйте клавишу Q', True, (150, 0, 90))
+
+first=Question('Правила игры \n Вы загадываете какой-то субъект России, \nа Джинн с помощью ваших ответов его угадывает. \n Все просто, нужно лишь немного вспомнить географию! \n Для ответов на вопроcы используйте кнопки на экране \n Ну что, начнём?',yes=oblast,no=None)
+first.no=first
+title=first
 def myFunction():
-    print('Button Pressed')
+    global title
+    if type(title)!=Replica:
+        title=title.next_yes()
+        if type(title)==Replica:
+           title.replica='Была загадана '+title.replica+' ?'
+
+
+
+
+def myFunction1():
+    global title
+    if type(title)!=Replica:
+        title=title.next_no()
+
+
 
 bt=Button(buttonText= 'Да', screen=screen,font=pygame.font.SysFont("Comic Sans", 45),onclickFunction=myFunction,x=50, y=400, width= 250, height=150,color1=GREEN,color2=DARKGREEN,color3=WHITE)
-bt2=Button(buttonText= 'Нет', screen=screen,font=pygame.font.SysFont("Comic Sans", 45),onclickFunction=myFunction,x=500, y=400, width= 250,height=150,color1=RED,color2=DARKRED,color3=WHITE)
+bt2=Button(buttonText= 'Нет', screen=screen,font=pygame.font.SysFont("Comic Sans", 45),onclickFunction=myFunction1,x=500, y=400, width= 250,height=150,color1=RED,color2=DARKRED,color3=WHITE)
 clock = pygame.time.Clock()
 FPS = 60
 
@@ -76,6 +96,7 @@ while flagRunning:
                 screen.blit(rules_l6, (95, 545))
             elif event.key == pygame.K_q:
                 pygame.draw.rect(screen, WHITE, (340, 50, 400, 200))
+                screen.blit(comicsans_font2.render(title.replica, True, (130, 0, 140)), (350, 60))
             elif event.key == pygame.K_LEFT:
                 pygame.draw.rect(screen, (10, 110, 50), (50, 400, 250, 150))
                 #pygame.draw.rect(screen, DARKGREEN, (50, 400, 250, 150), 8)
@@ -93,25 +114,21 @@ while flagRunning:
                 pygame.draw.rect(screen, DARKRED, (500, 400, 250, 150), 8)
                 screen.blit(text2, (585, 455))
                 pygame.display.flip()
-            elif event.key == pygame.K_LEFT:
-                pygame.draw.rect(screen, GREEN, (50, 400, 250, 150))
-                pygame.draw.rect(screen, DARKGREEN, (50, 400, 250, 150), 8)
-                screen.blit(text1, (135, 455))
-                pygame.display.flip()
-            elif event.key == pygame.K_RIGHT:
-                pygame.draw.rect(screen, RED, (500, 400, 250, 150))
-                pygame.draw.rect(screen, DARKRED, (500, 400, 250, 150), 8)
-                screen.blit(text2, (585, 455))
-                pygame.display.flip()
+
     clock.tick(FPS)
+
 
     #pygame.draw.rect(screen, GREY, [WIDTH / 2, HEIGHT / 2, 140, 40])
     #screen.blit(text, (WIDTH / 2 + 50, HEIGHT / 2 + 10))
     all_sprites.draw(screen)
+    pygame.draw.rect(screen, WHITE, (340, 50, 400, 200))
+    #screen.blit(comicsans_font2.render(title.replica, True, (130, 0, 140)), (360, 60))
+    blit_text(text=title.replica,pos=[360,60],xs=700,ys=500,surface=screen,color=(130, 0, 140),font=comicsans_font2)
     bt.process()
     bt2.process()
-
-
     pygame.display.flip()
+
+
+
 
 pygame.quit()
