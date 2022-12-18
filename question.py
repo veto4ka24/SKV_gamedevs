@@ -1,3 +1,4 @@
+import pygame
 class Replica():
     def __init__(self,rep):
           self.replica=rep
@@ -14,6 +15,9 @@ class Question(Replica):
     def next_yes(self):
             return self.yes
     def next_no(self):
+        if self.no=="quit":
+            pygame.quit()
+        else:
             return self.no
     def __str__(self):
         return str(self.replica)

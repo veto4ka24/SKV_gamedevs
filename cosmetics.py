@@ -1,4 +1,5 @@
 import pygame
+import random
 from Button_class import Button
 from question import *
 from blit_text import blit_text
@@ -20,7 +21,7 @@ class Jeenie(pygame.sprite.Sprite):
         self.image.set_colorkey(WHITE)
 
         self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH*3 / 13, HEIGHT*4 / 13)
+        self.rect.center = (WIDTH*3 / 17, HEIGHT*4 / 13)
 
 
 pygame.init()
@@ -33,18 +34,6 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Угадаю, какой регион России ты загадал!')
 pygame.display.set_icon(pygame.image.load('russianflag.bmp'))
 screen.fill((255, 254, 112))
-
-pygame.draw.rect(screen, GREEN, (50, 400, 250, 150))
-pygame.draw.rect(screen, DARKGREEN, (50, 400, 250, 150), 8)
-pygame.draw.rect(screen, RED, (500, 400, 250, 150))
-pygame.draw.rect(screen, DARKRED, (500, 400, 250, 150), 8)
-pygame.display.flip()
-
-comicsans_font1 = pygame.font.SysFont("Comic Sans", 45)
-text1 = comicsans_font1.render("Да", True, WHITE)
-screen.blit(text1, (135, 455))
-text2 = comicsans_font1.render("Нет", True, WHITE)
-screen.blit(text2, (585, 455))
 comicsans_font2 = pygame.font.SysFont("Comic Sans", 25)
 comicsans_font3 = pygame.font.SysFont("Comic Sans", 20)
 rules_l1 = comicsans_font2.render("Правила игры", True, (130, 0, 140))
@@ -63,6 +52,11 @@ def myFunction():
         title=title.next_yes()
         if type(title)==Replica:
            title.replica='Была загадана '+title.replica+' ?'
+    if type(title)==Replica:
+        phrases=["Изи катка","Загадывай лучше"," Это в очередной раз доказывает, что искуственный сильнее обычного"]
+        r=random.randint(0,2)
+        title=Question(phrases[r]+'\n Сыграем ещё?',oblast,'quit')
+
 
 
 
@@ -73,6 +67,10 @@ def myFunction1():
         title=title.next_no()
         if type(title)==Replica:
            title.replica='Была загадана '+title.replica+' ?'
+    if type(title)==Replica:
+        phrases=["Звездишь!!!","Ты бы хоть ответы на предыдущие вопросы запоминал!!!"," Ну я так не играю!!"]
+        r=random.randint(0,2)
+        title=Question(phrases[r]+'\n Сыграем ещё?',oblast,'quit')
 
 
 
@@ -90,43 +88,12 @@ while flagRunning:
         if event.type == pygame.QUIT:
             pygame.quit()
             flagRunning = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_h:
-                screen.fill((255, 254, 112))
-                pygame.draw.rect(screen, WHITE, (30, 330, 740, 260))
-                screen.blit(rules_l1, (290, 360))
-                screen.blit(rules_l2, (120, 400))
-                screen.blit(rules_l3, (70, 430))
-                screen.blit(rules_l4, (70, 460))
-                screen.blit(rules_l5, (70, 510))
-                screen.blit(rules_l6, (95, 545))
-            elif event.key == pygame.K_q:
-                pygame.draw.rect(screen, WHITE, (340, 50, 400, 200))
-                screen.blit(comicsans_font2.render(title.replica, True, (130, 0, 140)), (350, 60))
-            elif event.key == pygame.K_LEFT:
-                pygame.draw.rect(screen, (10, 110, 50), (50, 400, 250, 150))
-                #pygame.draw.rect(screen, DARKGREEN, (50, 400, 250, 150), 8)
-                pygame.display.flip()
-            elif event.key == pygame.K_RIGHT:
-                pygame.draw.rect(screen, (120, 10, 60), (500, 400, 250, 150))
-                pygame.display.flip()
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_h:
-                screen.fill((255, 254, 112))
-                pygame.draw.rect(screen, GREEN, (50, 400, 250, 150))
-                pygame.draw.rect(screen, DARKGREEN, (50, 400, 250, 150), 8)
-                screen.blit(text1, (135, 455))
-                pygame.draw.rect(screen, RED, (500, 400, 250, 150))
-                pygame.draw.rect(screen, DARKRED, (500, 400, 250, 150), 8)
-                screen.blit(text2, (585, 455))
-                pygame.display.flip()
-            elif event.key == pygame.K_LEFT:
 
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
                 myFunction()
                 pygame.display.flip()
-            elif event.key == pygame.K_RIGHT:
-
-
+            if event.key == pygame.K_RIGHT:
                 myFunction1()
                 pygame.display.flip()
 
@@ -137,9 +104,9 @@ while flagRunning:
     #pygame.draw.rect(screen, GREY, [WIDTH / 2, HEIGHT / 2, 140, 40])
     #screen.blit(text, (WIDTH / 2 + 50, HEIGHT / 2 + 10))
     all_sprites.draw(screen)
-    pygame.draw.rect(screen, WHITE, (340, 50, 400, 200))
+    pygame.draw.rect(screen, WHITE, (290, 50, 500, 250))
     #screen.blit(comicsans_font2.render(title.replica, True, (130, 0, 140)), (360, 60))
-    blit_text(text=title.replica,pos=[360,60],xs=700,ys=500,surface=screen,color=(130, 0, 140),font=comicsans_font2)
+    blit_text(text=title.replica,pos=[300,60],xs=800,ys=600,surface=screen,color=(130, 0, 140),font=comicsans_font3)
 
     pygame.display.flip()
 
