@@ -153,8 +153,7 @@ kazah = Question('Регион соседствует с Казахстаном?
 
 transsib = Question('Современная Транссибирская магистраль проходит по территории этой области?', railway, kazah)
 
-MSK = Question('Этот регион в московском' \
-               'часовом поясе?', nearborder3, transsib)
+MSK = Question('Этот регион в московском часовом поясе?', nearborder3, transsib)
 
 oblast = Question('Вы загадали область?', MSK, respublica)
 

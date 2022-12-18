@@ -71,6 +71,8 @@ def myFunction1():
     global title
     if type(title)!=Replica:
         title=title.next_no()
+        if type(title)==Replica:
+           title.replica='Была загадана '+title.replica+' ?'
 
 
 
@@ -81,12 +83,16 @@ FPS = 60
 
 flagRunning = True
 while flagRunning:
+    screen.fill((255, 254, 112))
+    bt.process()
+    bt2.process()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             flagRunning = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_h:
+                screen.fill((255, 254, 112))
                 pygame.draw.rect(screen, WHITE, (30, 330, 740, 260))
                 screen.blit(rules_l1, (290, 360))
                 screen.blit(rules_l2, (120, 400))
@@ -114,8 +120,18 @@ while flagRunning:
                 pygame.draw.rect(screen, DARKRED, (500, 400, 250, 150), 8)
                 screen.blit(text2, (585, 455))
                 pygame.display.flip()
+            elif event.key == pygame.K_LEFT:
+
+                myFunction()
+                pygame.display.flip()
+            elif event.key == pygame.K_RIGHT:
+
+
+                myFunction1()
+                pygame.display.flip()
 
     clock.tick(FPS)
+
 
 
     #pygame.draw.rect(screen, GREY, [WIDTH / 2, HEIGHT / 2, 140, 40])
@@ -124,8 +140,7 @@ while flagRunning:
     pygame.draw.rect(screen, WHITE, (340, 50, 400, 200))
     #screen.blit(comicsans_font2.render(title.replica, True, (130, 0, 140)), (360, 60))
     blit_text(text=title.replica,pos=[360,60],xs=700,ys=500,surface=screen,color=(130, 0, 140),font=comicsans_font2)
-    bt.process()
-    bt2.process()
+
     pygame.display.flip()
 
 
