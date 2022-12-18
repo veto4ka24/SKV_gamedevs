@@ -22,6 +22,8 @@ class Jeenie(pygame.sprite.Sprite):
 
 
 pygame.init()
+pygame.mixer.music.load("Gimny_-_Gosudarstvennyjj_gimn_Rossijjskojj_ederacii_48240966.mp3")
+pygame.mixer.music.play(loops = -1, fade_ms = 60)
 all_sprites = pygame.sprite.Group()
 akinator = Jeenie()
 all_sprites.add(akinator)
