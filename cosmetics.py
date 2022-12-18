@@ -52,7 +52,7 @@ def myFunction():
         title=title.next_yes()
         if type(title)==Replica:
            title.replica='Была загадана '+title.replica+' ?'
-    if type(title)==Replica:
+    elif type(title)==Replica:
         phrases=["Изи катка","Загадывай лучше"," Это в очередной раз доказывает, что искуственный сильнее обычного"]
         r=random.randint(0,2)
         title=Question(phrases[r]+'\n Сыграем ещё?',oblast,'quit')
@@ -67,7 +67,7 @@ def myFunction1():
         title=title.next_no()
         if type(title)==Replica:
            title.replica='Была загадана '+title.replica+' ?'
-    if type(title)==Replica:
+    elif type(title)==Replica:
         phrases=["Звездишь!!!","Ты бы хоть ответы на предыдущие вопросы запоминал!!!"," Ну я так не играю!!"]
         r=random.randint(0,2)
         title=Question(phrases[r]+'\n Сыграем ещё?',oblast,'quit')
