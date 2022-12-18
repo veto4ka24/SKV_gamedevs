@@ -1,5 +1,5 @@
 import pygame
-
+from Button_class import Button
 GREEN = (109, 234, 117)
 DARKGREEN = (40, 96, 51)
 RED = (221, 68, 35)
@@ -51,7 +51,11 @@ rules_l3 = comicsans_font2.render(" а Джинн с помощью ваших �
 rules_l4 = comicsans_font2.render("Все просто, нужно лишь немного вспомнить географию!", True, (130, 0, 140))
 rules_l5 = comicsans_font3.render('Для ответов на вопросы используйте клавиши "ВПРАВО" и "ВЛЕВО"', True, (140, 0, 100))
 rules_l6 = comicsans_font3.render('Для всплывания окна с вопросом используйте клавишу Q', True, (150, 0, 90))
+def myFunction():
+    print('Button Pressed')
 
+bt=Button(buttonText= 'Да', screen=screen,font=pygame.font.SysFont("Comic Sans", 45),onclickFunction=myFunction,x=50, y=400, width= 250, height=150,color1=GREEN,color2=DARKGREEN,color3=WHITE)
+bt2=Button(buttonText= 'Нет', screen=screen,font=pygame.font.SysFont("Comic Sans", 45),onclickFunction=myFunction,x=500, y=400, width= 250,height=150,color1=RED,color2=DARKRED,color3=WHITE)
 clock = pygame.time.Clock()
 FPS = 60
 
@@ -104,6 +108,10 @@ while flagRunning:
     #pygame.draw.rect(screen, GREY, [WIDTH / 2, HEIGHT / 2, 140, 40])
     #screen.blit(text, (WIDTH / 2 + 50, HEIGHT / 2 + 10))
     all_sprites.draw(screen)
+    bt.process()
+    bt2.process()
+
+
     pygame.display.flip()
 
 pygame.quit()
